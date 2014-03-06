@@ -123,4 +123,14 @@ describe Product do
     end
   end
 
+  # rspec-given
+  context "with title" do
+    Given { create(:ruby) }
+
+    context 'not unique' do
+      When(:product) { build(:ruby, description: "yyy", price: 1, image_url: "fred.gif") }
+      When { product.invalid? }
+      Then { product.errors[:title] == ["has already been taken"] }
+    end
+  end  
 end

@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -45,7 +46,9 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0.beta'
-  gem 'rspec', '~> 3.0.0.beta'
+  gem 'rspec-rails', '~> 3.0.0.beta2'
+  gem 'rspec', '~> 3.0.0.beta2'
   gem 'rspec-given', '~> 3.5.4'
 end
+
+gem 'factory_girl_rails', '~> 4.0'
