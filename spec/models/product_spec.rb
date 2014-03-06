@@ -2,6 +2,8 @@ require "spec_helper"
 
 describe Product do
 
+  price_error = "must be greater than or equal to 0.01"
+
   # rspec-given
   context "with no attributes" do
     Given(:product) { Product.new }
@@ -24,21 +26,18 @@ describe Product do
 
   # rspec-given
   context "with price" do
-    def product_with(price)
-      Product.new(title: "My Book Title", description: "yyy", price: price, image_url: "zzz.jpg")            
-    end
-
-    Given(:product) { product_with(price) }
-    When(:valid) { product.valid? } #valid? has side-effects (populates #errors) so we place it in a When clause
+    Given(:product) { build(:one, price: price) }
+    # valid? has side-effects (populates #errors) so we place it in a When
+    When(:valid) { product.valid? }
 
     context "negative" do
       Given(:price) { -1 }
-      Then { product.errors[:price] == ["must be greater than or equal to 0.01"] }
+      Then { product.errors[:price] == [price_error] }
     end
 
     context "zero" do
       Given(:price) { 0 }
-      Then { product.errors[:price] == ["must be greater than or equal to 0.01"] }
+      Then { product.errors[:price] == [price_error] }
     end
 
     context "positive" do
@@ -49,22 +48,18 @@ describe Product do
 
   # rspec
   describe "price" do
-    let (:product) {
-      Product.new(title:       "My Book Title",
-                  description: "yyy",
-                  image_url:   "zzz.jpg")
-    }
+    let(:product) { build(:one) }
 
     it "cannot be negative" do
       product.price = -1
       expect(product).to be_invalid
-      expect(product.errors[:price]).to eq(["must be greater than or equal to 0.01"])
+      expect(product.errors[:price]).to eq([price_error])
     end
 
     it "cannot be zero" do
       product.price = 0
       expect(product).to be_invalid
-      expect(product.errors[:price]).to eq(["must be greater than or equal to 0.01"])
+      expect(product.errors[:price]).to eq([price_error])
     end
 
     it "may be 1" do
@@ -75,14 +70,11 @@ describe Product do
 
   # rspec-given
   context "with image_url" do
-    def product_with(image_url)
-      Product.new(title: "My Book Title", description: "yyy", price: 1, image_url: image_url)            
-    end
-
-    Given(:product) { product_with(image_url) }
+    Given(:product) { build(:one, image_url: image_url) }
     When(:valid) { product.valid? }
 
-    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
+    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
+             http://a.b.c/x/y/z/fred.gif }
     ok.each do |image_url|
       context image_url do
         Given(:image_url) { image_url }
@@ -94,7 +86,7 @@ describe Product do
     bad.each do |image_url|
       context image_url do
         Given(:image_url) { image_url }
-        Then { not valid }
+        Then { !valid }
       end
     end
   end
@@ -109,7 +101,8 @@ describe Product do
     end
 
     it "accepts names of images" do
-      ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
+      ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
+               http://a.b.c/x/y/z/fred.gif }
       ok.each do |name|
         expect(new_product(name)).to be_valid
       end
@@ -128,9 +121,9 @@ describe Product do
     Given { create(:ruby) }
 
     context 'not unique' do
-      When(:product) { build(:ruby, description: "yyy", price: 1, image_url: "fred.gif") }
+      When(:product) { build(:ruby) }
       When { product.invalid? }
       Then { product.errors[:title] == ["has already been taken"] }
     end
-  end  
+  end
 end

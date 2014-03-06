@@ -6,3 +6,5 @@ AllCops:
     - db/**
     - config/**
 
+Documentation:
+  Enabled: false
