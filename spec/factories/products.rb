@@ -3,22 +3,22 @@ FactoryGirl.define do
   factory :one, class: Product do
     title "MyString"
     description "MyText"
-    image_url "MyString"
-    price 9.99
+    image_url "MyString.jpg"
+    price 9
   end
 
   factory :two, class: Product do
-    title "MyString"
+    title "MyString2"
     description "MyText"
-    image_url "MyString"
-    price 9.99
+    image_url "MyString.gif"
+    price 0.99
   end
 
   factory :ruby, class: Product do
     title "Programming Ruby 1.9"
-    description "Ruby is the fastest growing and most exciting dynamic " +
-                "language out there.  If you need to get working programs " +
-                "delivered fast, you should add Ruby to your toolbox."
+    description "Ruby is the fastest growing and most exciting dynamic " \
+                + "language out there.  If you need to get working programs " \
+                + "delivered fast, you should add Ruby to your toolbox."
     price 49.50
     image_url "ruby.png"
   end

@@ -1,0 +1,8 @@
+StringLiterals:
+  Enabled: false
+
+AllCops:
+  Excludes:
+    - db/**
+    - config/**
+
