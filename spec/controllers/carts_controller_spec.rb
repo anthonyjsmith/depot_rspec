@@ -41,7 +41,7 @@ describe CartsController do
   describe "GET show" do
     it "assigns the requested cart as @cart" do
       cart = Cart.create! valid_attributes
-      get :show, {:id => cart.to_param}, valid_session
+      get :show, { id: cart.to_param }, valid_session
       expect(assigns(:cart)).to eq(cart)
     end
   end
@@ -56,7 +56,7 @@ describe CartsController do
   describe "GET edit" do
     it "assigns the requested cart as @cart" do
       cart = Cart.create! valid_attributes
-      get :edit, {:id => cart.to_param}, valid_session
+      get :edit, { id: cart.to_param }, valid_session
       expect(assigns(:cart)).to eq(cart)
     end
   end
@@ -65,18 +65,18 @@ describe CartsController do
     describe "with valid params" do
       it "creates a new Cart" do
         expect {
-          post :create, {:cart => valid_attributes}, valid_session
+          post :create, { cart: valid_attributes }, valid_session
         }.to change(Cart, :count).by(1)
       end
 
       it "assigns a newly created cart as @cart" do
-        post :create, {:cart => valid_attributes}, valid_session
+        post :create, { cart: valid_attributes }, valid_session
         expect(assigns(:cart)).to be_a(Cart)
         expect(assigns(:cart)).to be_persisted
       end
 
       it "redirects to the created cart" do
-        post :create, {:cart => valid_attributes}, valid_session
+        post :create, { cart: valid_attributes }, valid_session
         expect(response).to redirect_to(Cart.last)
       end
     end
@@ -85,14 +85,14 @@ describe CartsController do
       it "assigns a newly created but unsaved cart as @cart" do
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Cart).to receive(:save).and_return(false)
-        post :create, {:cart => {  }}, valid_session
+        post :create, { cart: {  } }, valid_session
         expect(assigns(:cart)).to be_a_new(Cart)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Cart).to receive(:save).and_return(false)
-        post :create, {:cart => {  }}, valid_session
+        post :create, { cart: {  } }, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -107,18 +107,18 @@ describe CartsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         expect_any_instance_of(Cart).to receive(:update).with({ "these" => "params" })
-        put :update, {:id => cart.to_param, :cart => { "these" => "params" }}, valid_session
+        put :update, { id: cart.to_param, cart: { "these" => "params" } }, valid_session
       end
 
       it "assigns the requested cart as @cart" do
         cart = Cart.create! valid_attributes
-        put :update, {:id => cart.to_param, :cart => valid_attributes}, valid_session
+        put :update, { id: cart.to_param, cart: valid_attributes }, valid_session
         expect(assigns(:cart)).to eq(cart)
       end
 
       it "redirects to the cart" do
         cart = Cart.create! valid_attributes
-        put :update, {:id => cart.to_param, :cart => valid_attributes}, valid_session
+        put :update, { id: cart.to_param, cart: valid_attributes }, valid_session
         expect(response).to redirect_to(cart)
       end
     end
@@ -128,7 +128,7 @@ describe CartsController do
         cart = Cart.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Cart).to receive(:save).and_return(false)
-        put :update, {:id => cart.to_param, :cart => {  }}, valid_session
+        put :update, { id: cart.to_param, cart: {  } }, valid_session
         expect(assigns(:cart)).to eq(cart)
       end
 
@@ -136,7 +136,7 @@ describe CartsController do
         cart = Cart.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Cart).to receive(:save).and_return(false)
-        put :update, {:id => cart.to_param, :cart => {  }}, valid_session
+        put :update, { id: cart.to_param, cart: {  } }, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -145,15 +145,16 @@ describe CartsController do
   describe "DELETE destroy" do
     it "destroys the requested cart" do
       cart = Cart.create! valid_attributes
+      session[:cart_id] = cart.id
       expect {
-        delete :destroy, {:id => cart.to_param}, valid_session
+        delete :destroy, { id: cart.to_param }, valid_session
       }.to change(Cart, :count).by(-1)
     end
 
     it "redirects to the carts list" do
       cart = Cart.create! valid_attributes
-      delete :destroy, {:id => cart.to_param}, valid_session
-      expect(response).to redirect_to(carts_url)
+      delete :destroy, { id: cart.to_param }, valid_session
+      expect(response).to redirect_to(store_url)
     end
   end
 
