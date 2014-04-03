@@ -69,6 +69,12 @@ describe LineItemsController do
         }.to change(LineItem, :count).by(1)
       end
 
+      it "creates a new LineItem via ajax" do
+        expect {
+          xhr :post, :create, valid_attributes, valid_session
+        }.to change(LineItem, :count).by(1)
+      end
+
       it "assigns a newly created line_item as @line_item" do
         post :create, valid_attributes, valid_session
         expect(assigns(:line_item)).to be_a(LineItem)
@@ -77,7 +83,7 @@ describe LineItemsController do
 
       it "redirects to the cart" do
         post :create, valid_attributes, valid_session
-        expect(response).to redirect_to(cart_path(assigns(:line_item).cart))
+        expect(response).to redirect_to(store_path)
       end
     end
   end
