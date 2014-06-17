@@ -2,7 +2,12 @@
 
 FactoryGirl.define do
   factory :line_item do
-    product nil
-    cart nil
+    association :product, factory: :ruby
+    order
+  end
+
+  factory :line_item_two do
+    association :product, factory: :ruby
+    cart
   end
 end
