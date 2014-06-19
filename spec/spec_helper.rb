@@ -41,4 +41,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include FactoryGirl::Syntax::Methods
+
+  config.include RSpec::Rails::RequestExampleGroup, type: :feature
 end
