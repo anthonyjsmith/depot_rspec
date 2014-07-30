@@ -43,4 +43,8 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.include RSpec::Rails::RequestExampleGroup, type: :feature
+
+  # Helpers for controllers
+  config.extend ControllerMacros, :type => :controller
+  config.extend RequestMacros, :type => :request
 end
