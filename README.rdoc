@@ -1,28 +1,7 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The {depot application from _Agile Web Development with Rails 4_}[https://pragprog.com/titles/rails4/source_code] with RSpec tests.
 
-Things you may want to cover:
+See the git history to view the application at various stages of development.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+(I haven't polished this for public consumption: feel free to fork/improve/submit pull requests!)
