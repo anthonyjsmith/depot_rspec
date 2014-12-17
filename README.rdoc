@@ -1,6 +1,6 @@
 == README
 
-The {depot application from _Agile Web Development with Rails 4_}[https://pragprog.com/titles/rails4/source_code] with RSpec tests.
+The {depot application from "Agile Web Development with Rails 4"}[https://pragprog.com/titles/rails4/source_code] with RSpec tests.
 
 See the git history to view the application at various stages of development.
 
